@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GSAP ScrollTrigger Gallery</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #050505;
+        color: #f8f8f8;
+      }
+
+      header {
+        padding: 3rem 10vw;
+        min-height: 60vh;
+        display: grid;
+        align-content: center;
+        gap: 1rem;
+      }
+
+      header h1 {
+        font-size: clamp(2.5rem, 8vw, 4.5rem);
+        margin: 0;
+      }
+
+      header p {
+        max-width: 600px;
+        color: #b8c1c3;
+        line-height: 1.6;
+      }
+
+      .panel-wrapper {
+        position: relative;
+      }
+
+      section.panel {
+        height: 100vh;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2.5rem;
+        padding: 4rem 10vw;
+        align-items: center;
+      }
+
+      .panel:nth-child(odd) {
+        background: linear-gradient(120deg, #0e1118, #050505 70%);
+      }
+
+      .panel:nth-child(even) {
+        background: linear-gradient(120deg, #050505, #0b1219 80%);
+      }
+
+      .panel img {
+        width: 100%;
+        border-radius: 18px;
+        box-shadow: 0 20px 40px #00000055;
+      }
+
+      .panel-content h2 {
+        font-size: clamp(1.8rem, 5vw, 3rem);
+        margin-bottom: 0.6rem;
+      }
+
+      .panel-content p {
+        line-height: 1.7;
+        color: #c7d1d5;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <p>Scroll down</p>
+      <h1>Immersive storytelling with ScrollTrigger</h1>
+      <p>
+        Each panel pins itself while the text and imagery animate in. ScrollTrigger scrubs the
+        timeline so the animations respond directly to scroll speed.
+      </p>
+    </header>
+
+    <div class="panel-wrapper">
+      <section class="panel">
+        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80" alt="Mountains" />
+        <div class="panel-content">
+          <h2>Layered parallax</h2>
+          <p>
+            Use `yPercent` tweens with different durations to create multi-layer parallax. The
+            animation in this panel starts as soon as it pins.
+          </p>
+        </div>
+      </section>
+      <section class="panel">
+        <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=800&q=80" alt="Forest" />
+        <div class="panel-content">
+          <h2>Scrubbed sequences</h2>
+          <p>
+            ScrollTrigger's `scrub` option ties the playhead to scroll position, making the
+            tween play forward and backward depending on the user's intent.
+          </p>
+        </div>
+      </section>
+      <section class="panel">
+        <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=800&q=80" alt="Desert" />
+        <div class="panel-content">
+          <h2>Pinning content</h2>
+          <p>
+            Pinning a section keeps it fixed in place for a duration. Here we keep each panel on
+            screen while the stagger animation completes.
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-dVSxGInxjeRGna43EIBgzHuLlHotE5RX7V6czS4QhIwTZPIYOvToIJOfzmiEJeZVrDCTnhgypKekJy5o+1OtMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha512-i9h9NP7VDaRao7IhiHBpjz2uVH54camzatoNgtrENcGukdxbYlR5c+3F4iAfDdc0AGJi/7luWGINuD/7++PK5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+      gsap.registerPlugin(ScrollTrigger);
+
+      gsap.utils.toArray(".panel").forEach((panel, index) => {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: panel,
+            start: "top center",
+            end: "+=100%",
+            scrub: true,
+            pin: true,
+          },
+        });
+
+        tl.from(panel.querySelector("img"), {
+          yPercent: 20,
+          opacity: 0,
+          duration: 1.2,
+        }).from(
+          panel.querySelector(".panel-content"),
+          {
+            yPercent: 15,
+            opacity: 0,
+            duration: 0.8,
+          },
+          "-=0.6"
+        );
+      });
+    </script>
+  </body>
+</html>
