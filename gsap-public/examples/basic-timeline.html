@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GSAP Hero Timeline</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        background: radial-gradient(circle at top, #222, #050505 65%);
+        color: #f3f3f3;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+      }
+
+      .hero {
+        text-align: center;
+        max-width: 700px;
+        padding: 4rem 1.5rem;
+      }
+
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.35rem 0.9rem;
+        border-radius: 999px;
+        border: 1px solid #ffffff33;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 0.65rem;
+        color: #84f3ba;
+      }
+
+      h1 {
+        font-size: clamp(2.5rem, 5vw, 4.5rem);
+        margin: 1.5rem 0 1rem;
+        line-height: 1.1;
+      }
+
+      p {
+        font-size: 1.1rem;
+        color: #c8d0d3;
+        margin-bottom: 2rem;
+      }
+
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+      }
+
+      a.button {
+        padding: 0.85rem 1.6rem;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      a.button.primary {
+        background: linear-gradient(120deg, #84f3ba, #53c8ff);
+        color: #001510;
+      }
+
+      a.button.secondary {
+        border: 1px solid #ffffff44;
+        color: #f3f3f3;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="hero">
+      <span class="chip">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <circle cx="12" cy="12" r="10" stroke-width="1.5" opacity="0.5" />
+          <path d="M7 12l3 3 7-7" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        Powered by GSAP
+      </span>
+      <h1>Create motion that feels alive.</h1>
+      <p>
+        GSAP timelines make it effortless to choreograph multi-step sequences. This hero
+        animation fades in the chip, pops the headline, and slides the calls-to-action
+        with precise overlap for that polished feel.
+      </p>
+      <div class="cta-row">
+        <a class="button primary" href="https://gsap.com" target="_blank">Explore docs</a>
+        <a class="button secondary" href="https://gsap.com/studio" target="_blank">See examples</a>
+      </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-dVSxGInxjeRGna43EIBgzHuLlHotE5RX7V6czS4QhIwTZPIYOvToIJOfzmiEJeZVrDCTnhgypKekJy5o+1OtMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+      tl.from(".chip", { y: -20, opacity: 0 })
+        .from(
+          "h1",
+          {
+            yPercent: 20,
+            opacity: 0,
+            duration: 1.1,
+            ease: "elastic.out(1, 0.7)",
+          },
+          "-=0.1"
+        )
+        .from(
+          "p",
+          {
+            yPercent: 20,
+            opacity: 0,
+            duration: 0.8,
+          },
+          "-=0.4"
+        )
+        .from(
+          ".cta-row a",
+          {
+            y: 30,
+            opacity: 0,
+            stagger: 0.15,
+          },
+          "-=0.5"
+        );
+    </script>
+  </body>
+</html>
